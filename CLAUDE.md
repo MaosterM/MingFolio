@@ -87,17 +87,25 @@ public/                       favicon, static files copied as is
 
 - Final-year Computer Science student at Taylor's University, Kuala Lumpur.
   Specialising in Data Science, minor in Finance.
-- Team Shuijiao won **Best Low-Resource Language Solution** at RMIT Hackathon 2026 (22-23 October).
-- Projects:
-  - **Zone-Ming**: portfolio site in React, TypeScript, Three.js and GSAP.
-    https://github.com/MaosterM/Zone-Ming, live at https://maosterm.github.io/Zone-Ming/
-  - **Maison Aurelle**: booking site for a fictional five-star hotel in PHP, MySQL and vanilla JavaScript.
-    https://github.com/MaosterM/Maison-Aurelle
-  - **Financial Data Science Dashboard**: market analyser for stocks, FX and crypto with probabilistic
-    FX forecasts. In progress. Stack not yet confirmed. https://github.com/MaosterM/financial-datascience-dashboard
+- Team Shuijiao won **Best Low-Resource Language Solution** at RMIT Hackathon 2026 (22-23 October)
+  with **Zenithium** (confirmed by the owner).
+- Projects (details from each repo's README, read 2026-11-23; full briefs live in `src/data/projects.ts`).
+  **Private repos must never be linked** (visitors get a 404); they set `sourcePrivate: true` instead.
+  - **Zone-Ming** (repo private): portfolio, Vite/React/TS/Tailwind/GSAP/Lenis/three.js. Live at https://maosterm.github.io/Zone-Ming/
+  - **Maison Aurelle** (repo private): fictional five-star hotel booking site, PHP/MySQL/vanilla JS. Runs locally only.
+  - **bursakit** (public): Python package on PyPI (alpha), Bursa Malaysia prices + Malaysian macro data as pandas
+    DataFrames. https://github.com/MaosterM/bursakit, https://pypi.org/project/bursakit/
+  - **Financial Data Science Dashboard** (public): being rebuilt, Phase 1 = Node/Express server with `GET /health`;
+    Angular/MongoDB/FastAPI are only planned. https://github.com/MaosterM/financial-datascience-dashboard
+  - **Zenithium** (public, repo `Taylors_MY_Shuijiao_C2`): RMIT Hackathon 2026 Challenge 2 entry, encrypted family
+    estate vault, Next.js 16/TideCloak/WebCrypto. https://github.com/MaosterM/Taylors_MY_Shuijiao_C2
+  - **Ejector Seat** (repo private, `BNB-Shuijiao`): non-custodial anti-rug agent on BNB Smart Chain testnet,
+    Solidity/TypeScript/Foundry.
+  - Not on the site, by the owner's choice: Webolved, RMIT-Shuijiao, sonar, Perspective, skills-introduction-to-git.
 - Tools listed on the GitHub profile: JavaScript, TypeScript, React, C++, CSS, HTML, Docker, Figma,
   Jupyter, MySQL, PHP, Ubuntu, VS Code, Apache, Electron, IntelliJ.
 - Links: https://www.linkedin.com/in/cheah-yi-ming-549165364/ and https://github.com/MaosterM
+  (LinkedIn needs a sign-in to read; nothing from it is on the site yet.)
 - Email: `[Email placeholder]`. Availability: `[Availability placeholder]`. Resume: `[Resume placeholder]`.
 
 ## Design direction: Neo-Brutalist / Technical OS

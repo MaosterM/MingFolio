@@ -13,6 +13,8 @@ export interface Award {
   event: string;
   dates: string;
   team: string;
+  /** Slug of the winning project in projects.ts, if it is on the site. */
+  projectSlug?: string;
 }
 
 export interface Profile {
@@ -42,6 +44,7 @@ export const PROFILE: Profile = {
     event: 'RMIT Hackathon 2026',
     dates: '22–23 October 2026',
     team: 'Shuijiao',
+    projectSlug: 'zenithium',
   },
 };
 

@@ -29,7 +29,7 @@ export function StackStage() {
       <StageHeader
         stage="stack"
         title="Stack matrix"
-        intro="Tools from the GitHub profile. Each row lists the projects on this site that use it; select one to open its spec."
+        intro="Tools from the GitHub profile and the projects' READMEs. Each row lists the projects on this site that use it; select one to open its spec."
       />
       <p className="label text-muted">
         {TOOL_COUNT} tools / {TOOLS_IN_USE} used in listed projects / {STACK.length} categories

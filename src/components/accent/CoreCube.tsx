@@ -16,16 +16,16 @@ interface Face {
   tone: AccentTone;
   /** Rotation that brings this face to the front. */
   yaw: number;
-  /** The header filter that turns the cube to this face. null = no filter ("All"). */
-  domain: Domain | null;
+  /** The header filter that turns the cube to this face. */
+  domain: Domain;
 }
 
-/** The four labelled sides, in the order the idle animation shows them. */
+/** The four labelled sides, one per domain, in the order the idle animation shows them. */
 const FACES: readonly Face[] = [
-  { side: 'front', label: 'Core', tone: 'ink', yaw: 0, domain: null },
-  { side: 'right', label: 'UI', tone: 'magenta', yaw: -90, domain: 'ui' },
-  { side: 'back', label: 'Backend', tone: 'cobalt', yaw: -180, domain: 'backend' },
-  { side: 'left', label: 'Data', tone: 'yellow', yaw: -270, domain: 'data' },
+  { side: 'front', label: 'UI', tone: 'magenta', yaw: 0, domain: 'ui' },
+  { side: 'right', label: 'Backend', tone: 'cobalt', yaw: -90, domain: 'backend' },
+  { side: 'back', label: 'Data', tone: 'yellow', yaw: -180, domain: 'data' },
+  { side: 'left', label: 'Security', tone: 'periwinkle', yaw: -270, domain: 'security' },
 ];
 
 /**
@@ -51,7 +51,7 @@ export function CoreCubeCard({ className }: { className?: string }) {
         <div
           className="cube-stage my-4"
           role="img"
-          aria-label={spinning ? 'Cube turning through the domains Core, UI, Backend and Data' : `Cube showing the ${target.label} face`}
+          aria-label={spinning ? 'Cube turning through the domains UI, Backend, Data and Security' : `Cube showing the ${target.label} face`}
         >
           <div className="cube" data-spin={spinning} style={{ '--yaw': `${target.yaw}deg` } as CSSProperties}>
             {FACES.map((face) => (

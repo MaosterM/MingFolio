@@ -78,13 +78,14 @@ export function ProjectInspector() {
                 {project.title}
               </h2>
               <p className="max-w-prose">{project.tagline}</p>
+              {project.context && <p className="label text-muted">{project.context}</p>}
             </header>
 
-            <SpecSection title="Problem & constraints">
+            <SpecSection title="Problem">
               {project.brief.problem ?? <span className="placeholder">[Problem statement placeholder]</span>}
             </SpecSection>
 
-            <SpecSection title="Architecture">
+            <SpecSection title="What's inside">
               <div className="flex flex-wrap gap-2">
                 {project.stack.length > 0 ? (
                   project.stack.map((tool) => (
@@ -96,21 +97,23 @@ export function ProjectInspector() {
                   <span className="placeholder">[Stack placeholder]</span>
                 )}
               </div>
-              <BulletsOrPlaceholder items={project.brief.architecture} placeholder="[Architecture notes placeholder]" />
+              <BulletsOrPlaceholder items={project.brief.highlights} placeholder="[Highlights placeholder]" />
             </SpecSection>
 
-            <SpecSection title="Outcomes / key decisions">
-              <BulletsOrPlaceholder items={project.brief.outcomes} placeholder="[Outcomes placeholder]" />
+            <SpecSection title="Results / key decisions">
+              <BulletsOrPlaceholder items={project.brief.results} placeholder="[Results placeholder]" />
             </SpecSection>
 
             <SpecSection title="Links">
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 {project.links.live && (
                   <HardLink href={project.links.live} tone="yellow">
                     Live demo
                   </HardLink>
                 )}
+                {project.links.package && <HardLink href={project.links.package}>PyPI package</HardLink>}
                 {project.links.repo && <HardLink href={project.links.repo}>Source repo</HardLink>}
+                {/* TODO(human): when project.sourcePrivate is true, tell the visitor the source code is private. */}
               </div>
             </SpecSection>
           </div>

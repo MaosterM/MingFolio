@@ -1,8 +1,10 @@
 import { PROJECTS, type ProjectNode } from './projects';
 
 /**
- * Tools from the GitHub profile, plus Three.js and GSAP (used in Zone-Ming).
- * No proficiency levels: the matrix only shows what is verifiable, i.e. which projects use a tool.
+ * Tools from two verifiable sources:
+ *   - the list on the GitHub profile
+ *   - the stacks stated in the projects' READMEs (Python, pandas, Next.js, Solidity …)
+ * No proficiency levels: the matrix only shows what is checkable, i.e. which projects use a tool.
  */
 export interface StackCategory {
   id: string;
@@ -11,11 +13,19 @@ export interface StackCategory {
 }
 
 export const STACK: readonly StackCategory[] = [
-  { id: 'languages', title: 'Languages', tools: ['JavaScript', 'TypeScript', 'C++', 'PHP', 'HTML', 'CSS'] },
-  { id: 'frameworks', title: 'Frameworks & libraries', tools: ['React', 'Electron', 'Three.js', 'GSAP'] },
-  { id: 'data', title: 'Data', tools: ['MySQL', 'Jupyter'] },
-  { id: 'infra', title: 'Infra & OS', tools: ['Docker', 'Ubuntu', 'Apache'] },
-  { id: 'tooling', title: 'Tooling', tools: ['VS Code', 'IntelliJ', 'Figma'] },
+  {
+    id: 'languages',
+    title: 'Languages',
+    tools: ['JavaScript', 'TypeScript', 'Python', 'PHP', 'Solidity', 'C++', 'HTML', 'CSS'],
+  },
+  {
+    id: 'frameworks',
+    title: 'Frameworks & libraries',
+    tools: ['React', 'Next.js', 'Express', 'Tailwind CSS', 'Three.js', 'GSAP', 'Electron'],
+  },
+  { id: 'data', title: 'Data', tools: ['pandas', 'MySQL', 'Jupyter'] },
+  { id: 'infra', title: 'Runtime & infra', tools: ['Node.js', 'Docker', 'Ubuntu', 'Apache'] },
+  { id: 'tooling', title: 'Tooling', tools: ['Vite', 'Foundry', 'VS Code', 'IntelliJ', 'Figma'] },
 ];
 
 /** Projects whose stack lists this tool (case-insensitive). */
