@@ -6,6 +6,7 @@ import { SystemProvider, useSystem } from './store/useSystemStore';
 import { IdentityHeader } from './components/layout/IdentityHeader';
 import { PipelineNav } from './components/layout/PipelineNav';
 import { OverviewStage } from './components/views/OverviewStage';
+import { SystemsStage } from './components/views/SystemsStage';
 import { StagePlaceholder } from './components/views/StagePlaceholder';
 import { TelemetryTerminal } from './components/terminal/TelemetryTerminal';
 import { ProjectInspector } from './components/inspector/ProjectInspector';
@@ -17,7 +18,7 @@ function StageView({ stage }: { stage: StageId }) {
     case 'overview':
       return <OverviewStage />;
     case 'systems':
-      return <StagePlaceholder stage="systems" title="Project graph" arrivesIn="a later checkpoint" />;
+      return <SystemsStage />;
     case 'stack':
       return <StagePlaceholder stage="stack" title="Stack matrix" arrivesIn="a later checkpoint" />;
     case 'dispatch':
