@@ -7,6 +7,8 @@ import { IdentityHeader } from './components/layout/IdentityHeader';
 import { PipelineNav } from './components/layout/PipelineNav';
 import { OverviewStage } from './components/views/OverviewStage';
 import { StagePlaceholder } from './components/views/StagePlaceholder';
+import { TelemetryTerminal } from './components/terminal/TelemetryTerminal';
+import { cx } from './lib/ui';
 
 /** Which view each stage shows. Real views replace the placeholders checkpoint by checkpoint. */
 function StageView({ stage }: { stage: StageId }) {
@@ -31,7 +33,13 @@ function Shell() {
         Skip to content
       </a>
 
-      <div className="mx-auto flex min-h-dvh max-w-6xl flex-col gap-6 px-4 py-6 md:px-6 md:py-8">
+      {/* Bottom padding = terminal height + breathing room, so the docked terminal never covers content. */}
+      <div
+        className={cx(
+          'mx-auto flex min-h-dvh max-w-6xl flex-col gap-6 px-4 pt-6 md:px-6 md:pt-8',
+          state.terminalOpen ? 'pb-[calc(min(40dvh,16rem)+8rem)]' : 'pb-20',
+        )}
+      >
         <IdentityHeader />
         <PipelineNav />
 
@@ -65,6 +73,8 @@ function Shell() {
           <span>Vite / React / Tailwind</span>
         </footer>
       </div>
+
+      <TelemetryTerminal />
     </>
   );
 }
