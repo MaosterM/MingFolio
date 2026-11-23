@@ -1,6 +1,11 @@
 import TokenSpecimen from './dev/TokenSpecimen';
+import { SystemProvider } from './store/useSystemStore';
 
-// Temporary: shows the design tokens until the real shell lands in checkpoint 5.
+// Temporary: shows the design tokens and store probe until the real shell lands in checkpoint 5.
 export default function App() {
-  return <TokenSpecimen />;
+  return (
+    <SystemProvider>
+      <TokenSpecimen />
+    </SystemProvider>
+  );
 }

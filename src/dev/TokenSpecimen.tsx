@@ -4,6 +4,7 @@ import { AccentBadge } from '../components/primitives/AccentBadge';
 import { BrutalCard } from '../components/primitives/BrutalCard';
 import { HardButton, HardLink } from '../components/primitives/HardButton';
 import { WindowChrome } from '../components/primitives/WindowChrome';
+import StoreProbe from './StoreProbe';
 
 /**
  * A living style sheet: every token on one page, in whichever theme is active.
@@ -149,6 +150,11 @@ export default function TokenSpecimen() {
             </ul>
           </BrutalCard>
         </div>
+      </section>
+
+      <section aria-labelledby="sp-store">
+        <h2 id="sp-store" className="label mb-3 text-muted">07 / store probe (click, then use Back / Forward)</h2>
+        <StoreProbe />
       </section>
     </main>
   );
