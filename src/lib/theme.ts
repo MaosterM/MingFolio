@@ -49,8 +49,9 @@ export function effectiveTheme(choice: ThemeChoice): 'light' | 'dark' {
  * `current` is the stored choice ('system' on a first visit).
  */
 export function nextTheme(current: ThemeChoice): ThemeChoice {
-  if ( current === 'system')  return 'light';
-  if ( current === 'light')  return 'dark';
-  
-  return 'system';
+if (current === 'system') 
+return effectiveTheme('system') === 'dark' ? 'light' : 'dark'; if (current === 'light') return 'dark';
+return 'light';
 }
+
+
