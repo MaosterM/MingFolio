@@ -44,6 +44,13 @@ export interface ProjectNode {
   };
 }
 
+/** Badge colour and wording per status. */
+export const STATUS_BADGE: Readonly<Record<ProjectStatus, { tone: AccentTone; label: string }>> = {
+  LIVE: { tone: 'yellow', label: 'Shipped / Live' },
+  ACTIVE: { tone: 'magenta', label: 'Active / Build' },
+  REPO: { tone: 'periwinkle', label: 'Source / Repo' },
+};
+
 export const DOMAINS: readonly DomainDef[] = [
   { id: 'ui', label: 'UI', tone: 'magenta' },
   { id: 'backend', label: 'Backend', tone: 'cobalt' },

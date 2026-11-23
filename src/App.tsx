@@ -8,6 +8,7 @@ import { PipelineNav } from './components/layout/PipelineNav';
 import { OverviewStage } from './components/views/OverviewStage';
 import { StagePlaceholder } from './components/views/StagePlaceholder';
 import { TelemetryTerminal } from './components/terminal/TelemetryTerminal';
+import { ProjectInspector } from './components/inspector/ProjectInspector';
 import { cx } from './lib/ui';
 
 /** Which view each stage shows. Real views replace the placeholders checkpoint by checkpoint. */
@@ -75,6 +76,7 @@ function Shell() {
       </div>
 
       <TelemetryTerminal />
+      <ProjectInspector />
     </>
   );
 }

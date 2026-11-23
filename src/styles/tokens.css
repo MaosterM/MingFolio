@@ -233,6 +233,26 @@
     box-shadow: var(--offset-half) var(--offset-half) 0 0 var(--line);
   }
 
+  /* OS window inspector, a native <dialog> opened with showModal(). */
+  .inspector {
+    margin: auto;
+    width: min(44rem, calc(100% - 2rem));
+    max-height: min(85dvh, 48rem);
+    padding: 0;
+    overflow-y: auto;
+    background-color: var(--surface);
+    color: var(--ink);
+    border: var(--border-thick) solid var(--line);
+    box-shadow: calc(var(--offset) * 2) calc(var(--offset) * 2) 0 0 var(--shade);
+  }
+  .inspector[open] {
+    animation: spec-in var(--dur-snap) var(--ease-snap-curve);
+  }
+  /* Flat ink veil. Written as a literal because older browsers don't pass :root variables into ::backdrop. */
+  .inspector::backdrop {
+    background-color: rgb(10 10 10 / 0.72);
+  }
+
   /* Pipeline tab hover: instant periwinkle block on inactive tabs. */
   @media (hover: hover) {
     .tab[aria-selected="false"]:hover {
@@ -240,6 +260,19 @@
       color: var(--p-ink);
     }
   }
+}
+
+/* The window slides in from where its shadow is, like a key coming up. */
+@keyframes spec-in {
+  from {
+    opacity: 0;
+    transform: translate(var(--offset), var(--offset));
+  }
+}
+
+/* While a modal is open, the page behind it doesn't scroll. */
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 /* ── Reduced motion: everything rests ──────────────────────────────────────── */
