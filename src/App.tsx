@@ -8,12 +8,12 @@ import { PipelineNav } from './components/layout/PipelineNav';
 import { OverviewStage } from './components/views/OverviewStage';
 import { SystemsStage } from './components/views/SystemsStage';
 import { StackStage } from './components/views/StackStage';
-import { StagePlaceholder } from './components/views/StagePlaceholder';
+import { DispatchStage } from './components/views/DispatchStage';
 import { TelemetryTerminal } from './components/terminal/TelemetryTerminal';
 import { ProjectInspector } from './components/inspector/ProjectInspector';
 import { cx } from './lib/ui';
 
-/** Which view each stage shows. Real views replace the placeholders checkpoint by checkpoint. */
+/** Which view each stage shows. */
 function StageView({ stage }: { stage: StageId }) {
   switch (stage) {
     case 'overview':
@@ -23,7 +23,7 @@ function StageView({ stage }: { stage: StageId }) {
     case 'stack':
       return <StackStage />;
     case 'dispatch':
-      return <StagePlaceholder stage="dispatch" title="Open a channel" arrivesIn="a later checkpoint" />;
+      return <DispatchStage />;
   }
 }
 
