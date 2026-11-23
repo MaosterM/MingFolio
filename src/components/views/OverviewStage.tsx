@@ -2,6 +2,7 @@ import { StageHeader } from './StageHeader';
 import { AwardCard } from './overview/AwardCard';
 import { IdentityBriefCard } from './overview/IdentityBriefCard';
 import { SystemMapCard } from './overview/SystemMapCard';
+import { CoreCubeCard } from '../accent/CoreCube';
 
 /**
  * 01 / OVERVIEW: the homepage.
@@ -12,17 +13,15 @@ import { SystemMapCard } from './overview/SystemMapCard';
  */
 export function OverviewStage() {
   return (
-    <div className="flex flex-col gap-6">
-      <StageHeader stage="overview" title="System overview" />
-
-      <div className="grid gap-6 md:grid-cols-12">
+    <div className="grid gap-6 md:grid-cols-12">
       <IdentityBriefCard 
         className="md:col-span-7"/>
       <AwardCard 
         className="md:col-span-5"/>
       <SystemMapCard 
-        className="md:col-span-12"/>
+        className="md:col-span-7"/>
+      <CoreCubeCard 
+        className="md:col-span-5"/>
       </div>
-    </div>
   );
 }
