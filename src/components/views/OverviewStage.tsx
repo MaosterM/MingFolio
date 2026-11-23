@@ -14,6 +14,7 @@ import { CoreCubeCard } from '../accent/CoreCube';
 export function OverviewStage() {
   return (
     <div className="grid gap-6 md:grid-cols-12">
+      <StageHeader stage="overview" title="System overview" />
       <IdentityBriefCard 
         className="md:col-span-7"/>
       <AwardCard 
