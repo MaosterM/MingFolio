@@ -5,13 +5,14 @@ import { STAGE_PANEL_ID, tabId, type StageId } from './lib/stages';
 import { SystemProvider, useSystem } from './store/useSystemStore';
 import { IdentityHeader } from './components/layout/IdentityHeader';
 import { PipelineNav } from './components/layout/PipelineNav';
+import { OverviewStage } from './components/views/OverviewStage';
 import { StagePlaceholder } from './components/views/StagePlaceholder';
 
 /** Which view each stage shows. Real views replace the placeholders checkpoint by checkpoint. */
 function StageView({ stage }: { stage: StageId }) {
   switch (stage) {
     case 'overview':
-      return <StagePlaceholder stage="overview" title="System overview" arrivesIn="checkpoint 6 (yours)" />;
+      return <OverviewStage />;
     case 'systems':
       return <StagePlaceholder stage="systems" title="Project graph" arrivesIn="a later checkpoint" />;
     case 'stack':
