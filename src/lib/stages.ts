@@ -27,6 +27,13 @@ export function stageLabel(id: StageId): string {
   return stage ? `${stage.index} / ${stage.label.toUpperCase()}` : id;
 }
 
+/** DOM ids that connect the tabs (PipelineNav) to the panel they control (App). */
+export const STAGE_PANEL_ID = 'stage-panel';
+
+export function tabId(id: StageId): string {
+  return `tab-${id}`;
+}
+
 /** stage 2 → 'systems'; out of range → null. */
 export function stageByNumber(n: number): StageId | null {
   return STAGES[n - 1]?.id ?? null;
