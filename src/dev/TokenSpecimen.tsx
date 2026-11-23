@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { applyTheme, effectiveTheme, nextTheme, readStoredTheme, storeTheme, type ThemeChoice } from '../lib/theme';
+import { AccentBadge } from '../components/primitives/AccentBadge';
+import { BrutalCard } from '../components/primitives/BrutalCard';
+import { HardButton, HardLink } from '../components/primitives/HardButton';
+import { WindowChrome } from '../components/primitives/WindowChrome';
 
 /**
  * A living style sheet: every token on one page, in whichever theme is active.
@@ -103,6 +107,47 @@ export default function TokenSpecimen() {
             <p><span className="text-term-muted">004.8</span> <span className="text-magenta">FILTER</span> highlighted domain: data</p>
             <p><span className="text-term-muted">009.4</span> <span className="text-periwinkle">INSPECT</span> opened spec: zone-ming</p>
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="sp-primitives">
+        <h2 id="sp-primitives" className="label mb-3 text-muted">06 / primitives</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          <BrutalCard as="article" tone="magenta" aria-labelledby="sp-zone">
+            <WindowChrome title="project.spec // zone-ming" />
+            <div className="flex flex-col gap-3 p-4">
+              <p className="label text-muted">03 / Web &amp; UI</p>
+              <h3 id="sp-zone" className="display text-2xl">Zone-Ming</h3>
+              <p>Portfolio site in React, TypeScript, Three.js and GSAP.</p>
+              <div className="flex flex-wrap gap-2">
+                <AccentBadge tone="yellow">Live</AccentBadge>
+                <AccentBadge tone="periwinkle">React</AccentBadge>
+                <AccentBadge tone="cobalt">TypeScript</AccentBadge>
+              </div>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <HardButton tone="magenta">Inspect →</HardButton>
+                <HardLink href="https://github.com/MaosterM/Zone-Ming">Source repo</HardLink>
+              </div>
+            </div>
+          </BrutalCard>
+
+          <BrutalCard thick tone="cobalt">
+            <WindowChrome title="primitive.links" actions={<HardButton className="px-2" aria-label="Close (demo)">[X]</HardButton>} />
+            <ul className="flex flex-col gap-3 p-4">
+              <li>
+                <HardLink href="https://github.com/MaosterM" tone="yellow">GitHub</HardLink>
+                <span className="file-id ml-3 text-muted">external → new tab + ↗</span>
+              </li>
+              <li>
+                <HardLink href="?stage=systems">Systems stage</HardLink>
+                <span className="file-id ml-3 text-muted">same page</span>
+              </li>
+              <li>
+                <span className="placeholder">[Email placeholder]</span>
+                <span className="file-id ml-3 text-muted">unknown → never a link</span>
+              </li>
+            </ul>
+          </BrutalCard>
         </div>
       </section>
     </main>
