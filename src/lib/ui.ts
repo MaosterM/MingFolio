@@ -17,5 +17,5 @@ export function cx(...parts: Array<string | false | null | undefined>): string {
  *   isExternalHref('mailto:someone@example.com')   → false (opens the mail app, not a tab)
  */
 export function isExternalHref(href: string): boolean {
-  return href.startsWith('https://maosterm.github.io') || href.startsWith('http://https://linkedin.com/in/cheah-yi-ming-549165364/');
+  return href.startsWith('https://') || href.startsWith('http://');
 }
