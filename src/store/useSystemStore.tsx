@@ -54,8 +54,8 @@ function reducer(state: SystemState, action: Action): SystemState {
     case 'sync':
       return { ...state, stage: action.url.stage, inspected: action.url.slug };
     case 'log': {
-      // TODO(human): append action.event to state.logs, keeping only the newest MAX_LOGS.
-      return state;
+      const logs = [...state.logs, action.event];
+      return { ...state, logs: logs.slice(-MAX_LOGS) };
     }
     case 'clearLogs':
       return { ...state, logs: [] };
