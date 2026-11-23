@@ -1,0 +1,288 @@
+/*
+ * MingFolio design tokens — the ONLY file allowed to contain colour values.
+ *
+ * Three layers:
+ *   1. Primitives  (--p-*)  raw values, named for what they ARE   (yellow, paper, ink)
+ *   2. Semantics           named for what they DO, switch per theme (canvas, line, shade)
+ *   3. Tailwind @theme     exposes semantics as utilities          (bg-canvas, text-muted, font-mono)
+ * Components use layers 2 and 3. They never reach for a primitive directly,
+ * except accents, which stay the same in both themes.
+ */
+@import "tailwindcss";
+
+/* ── 1. Primitives ─────────────────────────────────────────────────────────── */
+:root {
+  --p-paper: #f4f4f0;
+  --p-white: #ffffff;
+  --p-ink: #0a0a0a;
+  --p-coal: #161616;
+  --p-term: #121212;
+  --p-term-text: #e5e5e5;
+  --p-grey-600: #525252;
+  --p-grey-400: #a3a3a3;
+
+  --p-yellow: #ffd400;
+  --p-magenta: #ff2e93;
+  --p-cobalt: #1e40ff;
+  --p-periwinkle: #a5b4fc;
+
+  /* geometry + motion */
+  --border-thin: 2px;
+  --border-thick: 3px;
+  --offset: 4px;
+  --offset-half: 2px;
+  --dur-snap: 120ms;
+  --ease-snap-curve: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ── 2. Semantics ──────────────────────────────────────────────────────────────
+ * light-dark(<light>, <dark>) picks a value from the element's colour-scheme.
+ * Default follows the OS ("light dark"); data-theme on <html> pins one.
+ * Each token is written ONCE, so the two themes cannot drift apart.
+ */
+:root {
+  color-scheme: light dark;
+
+  --canvas: light-dark(var(--p-paper), var(--p-ink));
+  --surface: light-dark(var(--p-white), var(--p-coal));
+  --ink: light-dark(var(--p-ink), var(--p-paper));
+  --muted: light-dark(var(--p-grey-600), var(--p-grey-400));
+  --line: light-dark(var(--p-ink), var(--p-paper));
+  --shade: light-dark(var(--p-ink), var(--p-grey-600));
+  --chrome: light-dark(var(--p-term), var(--p-ink));
+  --chrome-text: light-dark(var(--p-white), var(--p-paper));
+  --focus: light-dark(var(--p-cobalt), var(--p-periwinkle));
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+/* ── 3. Tailwind theme ─────────────────────────────────────────────────────────
+ * Wipe Tailwind's default palette, radii and shadows so `bg-red-500` or
+ * `rounded-lg` simply don't exist — off-system values can't sneak in.
+ */
+@theme {
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+}
+
+/* `inline` makes utilities reference the variable (var(--canvas)) instead of
+   copying its value, so they follow the theme switch at runtime. */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-chrome: var(--chrome);
+  --color-chrome-text: var(--chrome-text);
+
+  /* the terminal is dark in both themes */
+  --color-term: var(--p-term);
+  --color-term-text: var(--p-term-text);
+  --color-term-muted: var(--p-grey-400);
+
+  --color-yellow: var(--p-yellow);
+  --color-magenta: var(--p-magenta);
+  --color-cobalt: var(--p-cobalt);
+  --color-periwinkle: var(--p-periwinkle);
+  --color-on-accent: var(--p-ink);
+  --color-on-cobalt: var(--p-white);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "Cascadia Mono", monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --tracking-display: -0.03em;
+  --tracking-label: 0.08em;
+  --ease-snap: var(--ease-snap-curve);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-radius: 0;
+  }
+
+  html {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: var(--border-thin) solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--p-yellow);
+    color: var(--p-ink);
+  }
+}
+
+/* ── Components ────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Type roles */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+  .file-id {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+  }
+
+  /* Tones: one attribute sets the shadow colour and the solid fill for an element.
+     <div class="frame" data-tone="magenta"> → magenta hard shadow. */
+  [data-tone="ink"]        { --sh: var(--shade);       --fill: var(--ink);          --on-fill: var(--canvas); }
+  [data-tone="yellow"]     { --sh: var(--p-yellow);     --fill: var(--p-yellow);     --on-fill: var(--p-ink); }
+  [data-tone="magenta"]    { --sh: var(--p-magenta);    --fill: var(--p-magenta);    --on-fill: var(--p-ink); }
+  [data-tone="cobalt"]     { --sh: var(--p-cobalt);     --fill: var(--p-cobalt);     --on-fill: var(--p-white); }
+  [data-tone="periwinkle"] { --sh: var(--p-periwinkle); --fill: var(--p-periwinkle); --on-fill: var(--p-ink); }
+
+  /* A bordered box with a hard, unblurred offset shadow. */
+  .frame {
+    background-color: var(--surface);
+    border: var(--border-thin) solid var(--line);
+    box-shadow: var(--offset) var(--offset) 0 0 var(--sh, var(--shade));
+  }
+  .frame-thick {
+    border-width: var(--border-thick);
+  }
+
+  /* Mechanical key: moves toward its shadow while the shadow shrinks.
+     Only `transform` is transitioned; the shadow snaps (CLAUDE.md motion rule). */
+  .press {
+    cursor: pointer;
+    transition: transform var(--dur-snap) var(--ease-snap-curve);
+  }
+  @media (hover: hover) {
+    .press:hover {
+      transform: translate(var(--offset-half), var(--offset-half));
+      box-shadow: var(--offset-half) var(--offset-half) 0 0 var(--sh, var(--shade));
+    }
+  }
+  .press:active {
+    transform: translate(var(--offset), var(--offset));
+    box-shadow: 0 0 0 0 var(--sh, var(--shade));
+  }
+
+  /* Solid accent block, e.g. a badge: <span class="fill" data-tone="cobalt"> */
+  .fill {
+    background-color: var(--fill);
+    color: var(--on-fill);
+  }
+
+  /* Unknown facts: visibly unfinished, never a link. */
+  .placeholder {
+    font-family: var(--font-mono);
+    color: var(--muted);
+    border: var(--border-thin) dashed var(--muted);
+    padding: 0 0.375rem;
+  }
+
+  /* Skip link: off-screen until focused with Tab, then pinned top-left. */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
+  /* Toggle chip (filter badges). States flip instantly: no transition on colour.
+     <button class="chip" data-tone="magenta" aria-pressed="true"> */
+  .chip {
+    background-color: var(--surface);
+    color: var(--ink);
+    border: var(--border-thin) solid var(--line);
+  }
+  @media (hover: hover) {
+    .chip:hover {
+      background-color: var(--fill);
+      color: var(--on-fill);
+    }
+  }
+  .chip[aria-pressed="true"] {
+    background-color: var(--fill);
+    color: var(--on-fill);
+    box-shadow: var(--offset-half) var(--offset-half) 0 0 var(--line);
+  }
+
+  /* OS window inspector, a native <dialog> opened with showModal(). */
+  .inspector {
+    margin: auto;
+    width: min(44rem, calc(100% - 2rem));
+    max-height: min(85dvh, 48rem);
+    padding: 0;
+    overflow-y: auto;
+    background-color: var(--surface);
+    color: var(--ink);
+    border: var(--border-thick) solid var(--line);
+    box-shadow: calc(var(--offset) * 2) calc(var(--offset) * 2) 0 0 var(--shade);
+  }
+  .inspector[open] {
+    animation: spec-in var(--dur-snap) var(--ease-snap-curve);
+  }
+  /* Flat ink veil. Written as a literal because older browsers don't pass :root variables into ::backdrop. */
+  .inspector::backdrop {
+    background-color: rgb(10 10 10 / 0.72);
+  }
+
+  /* Pipeline tab hover: instant periwinkle block on inactive tabs. */
+  @media (hover: hover) {
+    .tab[aria-selected="false"]:hover {
+      background-color: var(--p-periwinkle);
+      color: var(--p-ink);
+    }
+  }
+}
+
+/* The window slides in from where its shadow is, like a key coming up. */
+@keyframes spec-in {
+  from {
+    opacity: 0;
+    transform: translate(var(--offset), var(--offset));
+  }
+}
+
+/* While a modal is open, the page behind it doesn't scroll. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* ── Reduced motion: everything rests ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

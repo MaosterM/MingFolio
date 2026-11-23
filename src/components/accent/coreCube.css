@@ -1,0 +1,71 @@
+/*
+ * CoreCube: a flat, hard-edged cube built from six <div>s with CSS 3D transforms. No WebGL.
+ * Trial feature: delete this folder and its one import in OverviewStage to remove it.
+ * Colours only come from tokens.css variables (via data-tone → --fill / --on-fill).
+ */
+
+.cube-stage {
+  --cube-size: 7.5rem;
+  --cube-half: calc(var(--cube-size) / 2);
+  width: var(--cube-size);
+  height: var(--cube-size);
+  perspective: 40rem;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  /* --yaw is set from React to turn a face toward the viewer; -32deg keeps a side visible so it reads as 3D. */
+  transform: rotateX(-24deg) rotateY(calc(var(--yaw, 0deg) - 32deg));
+  transition: transform calc(var(--dur-snap) * 2) var(--ease-snap-curve);
+}
+
+/* Idle: a quarter turn every 3 seconds, holding still in between, like a stepper motor. */
+.cube[data-spin="true"] {
+  animation: cube-step 12s var(--ease-snap-curve) infinite;
+}
+.cube-stage:hover .cube {
+  animation-play-state: paused;
+}
+
+@keyframes cube-step {
+  0%, 18%   { transform: rotateX(-24deg) rotateY(-32deg); }
+  25%, 43%  { transform: rotateX(-24deg) rotateY(-122deg); }
+  50%, 68%  { transform: rotateX(-24deg) rotateY(-212deg); }
+  75%, 93%  { transform: rotateX(-24deg) rotateY(-302deg); }
+  100%      { transform: rotateX(-24deg) rotateY(-392deg); }
+}
+
+.cube-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: var(--border-thin) solid var(--line);
+  background-color: var(--fill, var(--surface));
+  color: var(--on-fill, var(--ink));
+}
+
+.cube-face[data-side="front"]  { transform: translateZ(var(--cube-half)); }
+.cube-face[data-side="right"]  { transform: rotateY(90deg) translateZ(var(--cube-half)); }
+.cube-face[data-side="back"]   { transform: rotateY(180deg) translateZ(var(--cube-half)); }
+.cube-face[data-side="left"]   { transform: rotateY(-90deg) translateZ(var(--cube-half)); }
+.cube-face[data-side="top"]    { transform: rotateX(90deg) translateZ(var(--cube-half)); }
+.cube-face[data-side="bottom"] { transform: rotateX(-90deg) translateZ(var(--cube-half)); }
+
+/* The caps have no tone of their own. Set the surface explicitly, otherwise they inherit
+   --fill from the surrounding card's data-tone (custom properties are inherited). */
+.cube-face[data-side="top"],
+.cube-face[data-side="bottom"] {
+  background-color: var(--surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube,
+  .cube[data-spin="true"] {
+    animation: none;
+    transition: none;
+  }
+}
