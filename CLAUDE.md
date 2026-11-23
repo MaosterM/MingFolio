@@ -23,7 +23,11 @@ Overview stage). Work in small checkpoints, explain what each one adds, and leav
 - Component-library effects (React Bits, Magic UI, Aceternity, Motion Primitives, Animate UI, Kokonut UI)
   are welcome **as inspiration, rewritten** to match the design system: no gradients, glows, blur or springs.
 - No backend. Contact is links only until hosting and an email are decided.
-- Deploys to **GitHub Pages** as a static build (`base: './'` in `vite.config.ts`).
+- Deploys to **GitHub Pages** as a static build (`base: './'` in `vite.config.ts`):
+  `.github/workflows/deploy.yml` builds and publishes on every push to `main`.
+  Live at https://maosterm.github.io/MingFolio/ (Pages source must be set to "GitHub Actions").
+- GitHub Pages can't send HTTP headers, so the Content-Security-Policy is a `<meta>` tag injected
+  into the production build only (`cspMeta()` in `vite.config.ts`).
 
 Run locally:
 
@@ -55,6 +59,7 @@ src/components/inspector/     ProjectInspector (native <dialog>)
 src/components/terminal/      TelemetryTerminal
 src/components/accent/        CoreCube (CSS 3D, removable)
 public/                       favicon, static files copied as is
+.github/workflows/deploy.yml  GitHub Pages build + deploy
 ```
 
 ## Rules
