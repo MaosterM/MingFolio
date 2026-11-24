@@ -55,9 +55,7 @@ export function ProjectLeaf({ project, className }: { project: ProjectNode; clas
         <div className="flex flex-wrap gap-2">
           <AccentBadge tone={badge.tone}>{badge.label}</AccentBadge>
         </div>
-        <p className="file-id text-muted">
-          {project.stack.length > 0 ? project.stack.join(' · ') : <span className="placeholder">[Stack placeholder]</span>}
-        </p>
+        {project.stack.length > 0 && <p className="file-id text-muted">{project.stack.join(' · ')}</p>}
         {/* mt-auto pins the button to the bottom so the three windows' buttons line up */}
         <HardButton
           tone={project.tone}

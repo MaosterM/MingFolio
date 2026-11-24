@@ -1,9 +1,9 @@
 import type { AccentTone } from '../lib/ui';
 
 /**
- * Every project on the site. Source of truth: each repository's README on GitHub (read 2026-11-23)
- * and the owner's answers. Nothing here is guessed: a missing fact is `null` or an empty list,
- * and the inspector shows a placeholder for it.
+ * Every project on the site. Source of truth: each repository's README on GitHub (read 2026-11-23),
+ * the owner's LinkedIn posts and their answers. Nothing here is guessed: a missing fact is `null`
+ * or an empty list, and the inspector leaves that section out.
  */
 
 /** Domains drive the header filter and the cube faces. */
@@ -97,7 +97,8 @@ export const PROJECTS: readonly ProjectNode[] = [
     status: 'LIVE',
     stack: ['Vite', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Lenis', 'Three.js', 'React Router'],
     brief: {
-      problem: null,
+      // From the repository's own description on GitHub.
+      problem: 'A personal portfolio, built while testing the limits of AI coding agents.',
       highlights: [
         'Page wipes: three slanted slabs sweep across while the route changes underneath',
         'Animated background with canvas matrix rain, scanlines and a glitch flicker',
@@ -151,7 +152,9 @@ export const PROJECTS: readonly ProjectNode[] = [
     status: 'LIVE',
     stack: ['Python', 'pandas'],
     brief: {
-      problem: null,
+      // From the README's opening lines.
+      problem:
+        'Bursa Malaysia stock data and Malaysian macro series in one place, as pandas DataFrames with one schema per data type.',
       highlights: [
         'Daily prices, dividends and listings for Bursa Malaysia; 1155, 1155.KL and MAYBANK resolve to the same ticker',
         'Malaysian macro series: the Overnight Policy Rate and MYR exchange rates',
@@ -190,7 +193,7 @@ export const PROJECTS: readonly ProjectNode[] = [
     indexLabel: '03 / Zenithium',
     title: 'Zenithium',
     tagline: 'Family estate vault: a loved one’s documents open only when the heirs agree together.',
-    context: 'RMIT Hackathon 2026 / Team Shuijiao',
+    context: 'RMIT Hackathon 2026 / Challenge 2 / Team Shuijiao',
     branch: 'security',
     domains: ['security', 'backend'],
     tone: 'cobalt',
@@ -205,8 +208,7 @@ export const PROJECTS: readonly ProjectNode[] = [
         'A Database View shows that the server stores only ciphertext',
       ],
       results: [
-        'Won Best Low-Resource Language Solution at RMIT Hackathon 2026',
-        'Built for Challenge 2: a working app without unilateral control over protected data or decisions',
+        'Built by the team in under 5 hours, for Challenge 2: a working app without unilateral control over protected data or decisions',
         'Honest scope: the quorum approval workflow and death verification are simulated',
       ],
     },
