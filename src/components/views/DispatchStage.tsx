@@ -10,7 +10,7 @@ const CHANNELS: readonly ProfileLink[] = Object.values(LINKS);
 
 /**
  * 04 / DISPATCH: ways to reach the owner. Links only, no form and no backend.
- * A channel without a verified address (href: null) shows its placeholder and never renders as a link.
+ * A channel without an address (href: null, e.g. the resume) shows its "-" and never renders as a link.
  */
 export function DispatchStage() {
   return (
@@ -18,7 +18,7 @@ export function DispatchStage() {
       <StageHeader
         stage="dispatch"
         title="Open a channel"
-        intro="Every live channel opens in a new tab. Channels marked pending have no published address yet."
+        intro="Web channels open in a new tab; email opens your mail app."
       />
       <ul className="grid gap-6 sm:grid-cols-2">
         {CHANNELS.map((link, index) => (
@@ -31,8 +31,8 @@ export function DispatchStage() {
 
 function ChannelCard({ link, index }: { link: ProfileLink; index: number }) {
   const { logEvent } = useSystem();
-  const live = link.href !== null;
   const titleId = `channel-${link.key}`;
+  const live = link.href !== null;
 
   return (
     <BrutalCard as="li" tone={live ? 'yellow' : 'ink'} aria-labelledby={titleId} className="flex flex-col">
@@ -40,27 +40,22 @@ function ChannelCard({ link, index }: { link: ProfileLink; index: number }) {
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="flex items-center justify-between gap-3">
           <p className="label text-muted">CH.{String(index + 1).padStart(2, '0')}</p>
-          <AccentBadge tone={live ? 'yellow' : 'periwinkle'}>{live ? 'Open' : 'Pending'}</AccentBadge>
+          {live && <AccentBadge tone="yellow">Open</AccentBadge>}
         </div>
         <h3 id={titleId} className="display text-2xl">
           {link.label}
         </h3>
         <p className="file-id break-all">
-          {live ? link.display : <span className="placeholder">{link.display}</span>}
+          {link.display}
+          {!live && <span className="sr-only">: not available yet</span>}
         </p>
-        <div className="mt-auto pt-2">
-          {link.href !== null ? (
-            <HardLink
-              href={link.href}
-              tone="yellow"
-              onClick={() => logEvent('DISPATCH', `opened ${link.key}`)}
-            >
-              Open {link.label}
+        {link.href !== null && (
+          <div className="mt-auto pt-2">
+            <HardLink href={link.href} tone="yellow" onClick={() => logEvent('DISPATCH', `opened ${link.key}`)}>
+              {link.key === 'email' ? 'Send an email' : `Open ${link.label}`}
             </HardLink>
-          ) : (
-            <p className="label text-muted">Not published yet</p>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </BrutalCard>
   );

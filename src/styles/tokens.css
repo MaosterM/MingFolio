@@ -233,6 +233,40 @@
     box-shadow: var(--offset-half) var(--offset-half) 0 0 var(--line);
   }
 
+  /* Native <details> dropdown in the brutalist style: a chip-like summary row with a ▸ that turns ▾.
+     Native = keyboard (Enter/Space), screen-reader state ("expanded/collapsed") and find-in-page for free. */
+  .disclosure > summary {
+    display: flex;
+    min-height: 2.75rem;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.75rem;
+    list-style: none;
+    border: var(--border-thin) solid var(--line);
+    background-color: var(--surface);
+    padding: 0.5rem 0.75rem;
+  }
+  .disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+  .disclosure > summary::before {
+    content: "▸";
+    font-family: var(--font-mono);
+    transition: transform var(--dur-snap) var(--ease-snap-curve);
+  }
+  .disclosure[open] > summary::before {
+    transform: rotate(90deg);
+  }
+  @media (hover: hover) {
+    .disclosure > summary:hover {
+      background-color: var(--p-yellow);
+      color: var(--p-ink);
+    }
+  }
+  .disclosure[open] > summary {
+    border-bottom-style: dashed;
+  }
+
   /* OS window inspector, a native <dialog> opened with showModal(). */
   .inspector {
     margin: auto;

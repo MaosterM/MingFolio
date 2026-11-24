@@ -23,10 +23,13 @@ export function IdentityBriefCard({ className }: CardProps) {
               <dd>{fact.value}</dd>
             </div>
           ))}
-          <dt className="label pt-0.5 text-muted">Status</dt>
-          <dd>
-            {PROFILE.availability ?? <span className="placeholder">[Availability placeholder]</span>}
-          </dd>
+          {/* Shown only once an availability is actually stated in profile.ts. */}
+          {PROFILE.availability && (
+            <>
+              <dt className="label pt-0.5 text-muted">Status</dt>
+              <dd>{PROFILE.availability}</dd>
+            </>
+          )}
         </dl>
       </div>
     </BrutalCard>

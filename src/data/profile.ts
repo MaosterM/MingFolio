@@ -1,6 +1,7 @@
 /**
- * Verified facts about the owner. Source of truth: "About the owner" in CLAUDE.md.
- * `null` means "not known yet": components render a [Bracketed placeholder] and never a link.
+ * Verified facts about the owner. Sources: "About the owner" in CLAUDE.md and the owner's
+ * LinkedIn profile (read 2026-11-23, with their go-ahead for each item).
+ * `null` means "not known yet": components leave that item out entirely. Nothing is ever invented.
  */
 
 export interface ProfileFact {
@@ -13,7 +14,10 @@ export interface Award {
   event: string;
   dates: string;
   team: string;
-  /** Slug of the winning project in projects.ts, if it is on the site. */
+  issuer: string;
+  /** What it was awarded for, from the LinkedIn "Honors & awards" entry. */
+  citation: string;
+  /** Slug of the winning project in projects.ts, if that project is on the site. */
   projectSlug?: string;
 }
 
@@ -23,6 +27,7 @@ export interface Profile {
   /** Shown as "COMPUTER SCIENCE / DATA SCIENCE / KUALA LUMPUR". */
   roleLine: readonly string[];
   facts: readonly ProfileFact[];
+  /** null = not stated anywhere, so the Status row is hidden. */
   availability: string | null;
   award: Award;
 }
@@ -32,9 +37,9 @@ export const PROFILE: Profile = {
   handle: 'MaosterM',
   roleLine: ['Computer Science', 'Data Science', 'Kuala Lumpur'],
   facts: [
-    { label: 'Programme', value: 'Computer Science, final year' },
+    { label: 'Programme', value: 'Bachelor of Computer Science, final year' },
     { label: 'University', value: "Taylor's University" },
-    { label: 'Location', value: 'Kuala Lumpur' },
+    { label: 'Location', value: 'Greater Kuala Lumpur' },
     { label: 'Specialisation', value: 'Data Science' },
     { label: 'Minor', value: 'Finance' },
   ],
@@ -44,7 +49,10 @@ export const PROFILE: Profile = {
     event: 'RMIT Hackathon 2026',
     dates: '22–23 October 2026',
     team: 'Shuijiao',
-    projectSlug: 'zenithium',
+    issuer: "Taylor's University & RMIT University",
+    citation:
+      'For a computational solution to the challenges of low-resource-language datasets and natural language processing.',
+    // The winning NLP entry isn't on the site, so the award stands on its own.
   },
 };
 
@@ -55,6 +63,7 @@ export interface ProfileLink {
   label: string;
   /** What the visitor reads, e.g. "github.com/MaosterM". */
   display: string;
+  /** null = not published: the channel is hidden and `open` refuses it. */
   href: string | null;
 }
 
@@ -67,8 +76,9 @@ export const LINKS: Readonly<Record<LinkKey, ProfileLink>> = {
     display: 'in/cheah-yi-ming',
     href: 'https://www.linkedin.com/in/cheah-yi-ming-549165364/',
   },
-  email: { key: 'email', label: 'Email', display: '[Email placeholder]', href: null },
-  resume: { key: 'resume', label: 'Resume', display: '[Resume placeholder]', href: null },
+  email: { key: 'email', label: 'Email', display: 'romeocheah22@gmail.com', href: 'mailto:romeocheah22@gmail.com' },
+  // No resume file yet: Dispatch shows the card with "-" and no link.
+  resume: { key: 'resume', label: 'Resume', display: '-', href: null },
 };
 
 /** Only https:// and mailto: may leave the site. Blocks javascript:, data: and friends. */

@@ -27,8 +27,10 @@ export function AwardCard({ className }: CardProps) {
         <h3 id="award-title" className="display text-2xl md:text-3xl">
           {award.title}
         </h3>
-        <p>
+        <p className="text-sm">{award.citation}</p>
+        <p className="flex flex-wrap items-center gap-2">
           <AccentBadge tone="yellow">Team {award.team}</AccentBadge>
+          <span className="label text-muted">{award.issuer}</span>
         </p>
         {entry && (
           <HardButton tone="yellow" onClick={() => inspect(entry.slug)} className="mt-auto self-start">
