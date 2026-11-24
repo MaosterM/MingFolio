@@ -14,16 +14,16 @@ The page is a four-stage pipeline instead of a scrolling brochure:
 
 | Stage | What it shows |
 |---|---|
-| `01 / OVERVIEW` | Identity brief, the RMIT Hackathon 2026 award, a system map of counts, and a CSS 3D domain cube |
-| `02 / SYSTEMS` | The projects as a node graph: router, branches and project windows on 2px orthogonal connectors |
-| `03 / STACK` | Tools from the GitHub profile, each linked to the projects on this site that use it |
-| `04 / DISPATCH` | Contact channels (GitHub, LinkedIn) |
+| `01 / OVERVIEW` | Identity brief, the RMIT Hackathon 2026 award, a system map of counts, a CSS 3D domain cube, an education timeline and certifications grouped by issuer |
+| `02 / SYSTEMS` | Six projects as a node graph: router, three branches and project windows on 2px orthogonal connectors |
+| `03 / STACK` | Tools from the GitHub profile and the project READMEs, each linked to the projects that use it |
+| `04 / DISPATCH` | Contact channels (GitHub, LinkedIn, email) |
 
 Around it:
 
 - **Telemetry terminal**, docked at the bottom. Press <kbd>/</kbd> anywhere to type a command.
 - **Project inspector**, a native `<dialog>` with the project's stack and links. <kbd>Esc</kbd> closes it.
-- **Domain filter** (UI / Backend / Data) in the header. It dims non-matching nodes and turns the cube.
+- **Domain filter** (UI / Backend / Data / Security) in the header. It dims non-matching nodes and turns the cube.
 - **Deep links**: `?stage=systems&node=zone-ming` opens that stage and project; Back and Forward work.
 - **Light and dark themes**, following the OS until you choose one.
 
@@ -35,7 +35,7 @@ whoami                    print the profile
 ls                        list project nodes
 inspect <slug>            open a project spec      e.g. inspect zone-ming
 stage <1-4>               switch pipeline stage
-open <github|linkedin>    open an external link
+open <github|linkedin|email>  open a contact channel
 clear                     clear the log
 ```
 

@@ -49,7 +49,7 @@ index.html                    shell + <noscript> summary of the verified facts
 src/main.tsx                  entry: fonts, tokens, theme boot, providers
 src/App.tsx                   layout: header, pipeline nav, active stage, footer, terminal
 src/styles/tokens.css         Tailwind import, design tokens, base and component classes
-src/data/                     profile.ts, projects.ts, stack.ts: the only place content lives
+src/data/                     profile.ts, projects.ts, stack.ts, credentials.ts: the only place content lives
 src/lib/                      stages, telemetry, urlSync, theme, commandRegistry (pure TS, no React)
 src/store/                    useSystemStore.tsx: Context + useReducer, logEvent, URL sync
 src/components/primitives/    BrutalCard, HardButton, WindowChrome, AccentBadge
@@ -65,7 +65,8 @@ public/                       favicon, static files copied as is
 ## Rules
 
 - **Never invent facts.** No made-up projects, skills, proficiency levels, metrics, testimonials, links or emails.
-  Anything unknown stays a `[Bracketed placeholder]` and placeholder links do not render as `<a>`.
+  Anything unknown is `null` / an empty list in `src/data/` and the UI **leaves it out** (no row, no section,
+  no channel). It never renders as a link and never as visible `[placeholder]` text on the live site.
 - **Content lives in `src/data/`.** Components read from it; they don't hard-code copy about the owner.
 - Semantic HTML: one `<h1>`, landmarks (`header`, `nav`, `main`, `footer`), headings in order,
   `alt` on every image, `<button>` for actions and `<a>` for navigation.
@@ -87,8 +88,16 @@ public/                       favicon, static files copied as is
 
 - Final-year Computer Science student at Taylor's University, Kuala Lumpur.
   Specialising in Data Science, minor in Finance.
-- Team Shuijiao won **Best Low-Resource Language Solution** at RMIT Hackathon 2026 (22-23 October)
-  with **Zenithium** (confirmed by the owner).
+- Team Shuijiao won **Best Low-Resource Language Solution** at RMIT Hackathon 2026 (22-23 October,
+  Malaysian campus hosted at Taylor's University; issued by Taylor's University & RMIT University) for an NLP
+  solution to low-resource-language datasets. That entry is **not** Zenithium: Zenithium was the team's
+  Challenge 2 bereavement app, built in under 5 hours (LinkedIn post + owner's confirmation).
+- Education (LinkedIn): Taylor's University, Bachelor's Degree in Computer Science, Sep 2024 – Sep 2027;
+  Taylor's College, Foundation in Computing, Aug 2023 – Aug 2024, 3.80 CGPA; Sri KDU Schools 2018 – 2022,
+  Treasurer of the Futsal Club. Student organising team, Sync Night 2026 (TRE, Taylor's SCS).
+- Certifications (LinkedIn): 9, listed in `src/data/credentials.ts` (Bloomberg ×3, Cisco ×3, Oracle,
+  Salesforce Trailhead, Digital Education Council).
+- Not on the site by the owner's choice: part-time hospitality jobs listed on LinkedIn.
 - Projects (details from each repo's README, read 2026-11-23; full briefs live in `src/data/projects.ts`).
   **Private repos must never be linked** (visitors get a 404); they set `sourcePrivate: true` instead.
   - **Zone-Ming** (repo private): portfolio, Vite/React/TS/Tailwind/GSAP/Lenis/three.js. Live at https://maosterm.github.io/Zone-Ming/
@@ -105,8 +114,10 @@ public/                       favicon, static files copied as is
 - Tools listed on the GitHub profile: JavaScript, TypeScript, React, C++, CSS, HTML, Docker, Figma,
   Jupyter, MySQL, PHP, Ubuntu, VS Code, Apache, Electron, IntelliJ.
 - Links: https://www.linkedin.com/in/cheah-yi-ming-549165364/ and https://github.com/MaosterM
-  (LinkedIn needs a sign-in to read; nothing from it is on the site yet.)
-- Email: `[Email placeholder]`. Availability: `[Availability placeholder]`. Resume: `[Resume placeholder]`.
+  (LinkedIn needs a signed-in browser to read.)
+- Email: romeocheah22@gmail.com (from LinkedIn contact info; the owner approved publishing it).
+  Availability: not stated anywhere (hidden). Resume: none yet; Dispatch shows the channel as "-" with no link
+  (owner's choice) until a file is added.
 
 ## Design direction: Neo-Brutalist / Technical OS
 
@@ -128,7 +139,7 @@ no bouncy springs.
 - **Motion:** `120ms`, `cubic-bezier(0.2, 0, 0, 1)`, zero overshoot. Hover states flip colours instantly.
 - **Structure:** identity strip, then a 4-stage pipeline (`01 / OVERVIEW`, `02 / SYSTEMS`, `03 / STACK`,
   `04 / DISPATCH`), the active stage below it, and the telemetry terminal docked at the bottom.
-- **3D accent (trial):** one CSS-3D cube whose faces are the domains (CORE, UI, BACKEND, DATA). It turns to the
+- **3D accent (trial):** one CSS-3D cube whose faces are the domains (UI, BACKEND, DATA, SECURITY). It turns to the
   active filter. It may be removed; keep it isolated in `src/components/accent/`.
 
 ## Git
