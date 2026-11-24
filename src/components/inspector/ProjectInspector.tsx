@@ -78,39 +78,43 @@ export function ProjectInspector() {
                 {project.title}
               </h2>
               <p className="max-w-prose">{project.tagline}</p>
+              {project.context && <p className="label text-muted">{project.context}</p>}
             </header>
 
-            <SpecSection title="Problem & constraints">
-              {project.brief.problem ?? <span className="placeholder">[Problem statement placeholder]</span>}
-            </SpecSection>
+            {/* Each section appears only when there is something true to say in it. */}
+            {project.brief.problem && <SpecSection title="Problem">{project.brief.problem}</SpecSection>}
 
-            <SpecSection title="Architecture">
-              <div className="flex flex-wrap gap-2">
-                {project.stack.length > 0 ? (
-                  project.stack.map((tool) => (
-                    <AccentBadge key={tool} tone="periwinkle">
-                      {tool}
-                    </AccentBadge>
-                  ))
-                ) : (
-                  <span className="placeholder">[Stack placeholder]</span>
+            {(project.stack.length > 0 || project.brief.highlights.length > 0) && (
+              <SpecSection title="What's inside">
+                {project.stack.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((tool) => (
+                      <AccentBadge key={tool} tone="periwinkle">
+                        {tool}
+                      </AccentBadge>
+                    ))}
+                  </div>
                 )}
-              </div>
-              <BulletsOrPlaceholder items={project.brief.architecture} placeholder="[Architecture notes placeholder]" />
-            </SpecSection>
+                <Bullets items={project.brief.highlights} />
+              </SpecSection>
+            )}
 
-            <SpecSection title="Outcomes / key decisions">
-              <BulletsOrPlaceholder items={project.brief.outcomes} placeholder="[Outcomes placeholder]" />
-            </SpecSection>
+            {project.brief.results.length > 0 && (
+              <SpecSection title="Results / key decisions">
+                <Bullets items={project.brief.results} />
+              </SpecSection>
+            )}
 
             <SpecSection title="Links">
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 {project.links.live && (
                   <HardLink href={project.links.live} tone="yellow">
                     Live demo
                   </HardLink>
                 )}
+                {project.links.package && <HardLink href={project.links.package}>PyPI package</HardLink>}
                 {project.links.repo && <HardLink href={project.links.repo}>Source repo</HardLink>}
+                {project.sourcePrivate && <span className="label text-muted">Source code: private repository</span>}
               </div>
             </SpecSection>
           </div>
@@ -129,8 +133,8 @@ function SpecSection({ title, children }: { title: string; children: ReactNode }
   );
 }
 
-function BulletsOrPlaceholder({ items, placeholder }: { items: readonly string[]; placeholder: string }) {
-  if (items.length === 0) return <p className="placeholder self-start">{placeholder}</p>;
+function Bullets({ items }: { items: readonly string[] }) {
+  if (items.length === 0) return null;
   return (
     <ul className="flex flex-col gap-1.5">
       {items.map((item) => (
